@@ -1,0 +1,49 @@
+// Frontend: index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Round Robin Scheduler</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Round Robin Scheduler</h1>
+        <form id="process-form">
+            <label for="process-count">Number of Processes:</label>
+            <input type="number" id="process-count" min="1" required>
+            <label for="quantum">Quantum:</label>
+            <input type="number" id="quantum" min="1" required>
+            <button type="button" id="generate-table">Generate Table</button>
+        </form>
+        <table id="process-table" style="display:none;">
+            <thead>
+                <tr>
+                    <th>Process</th>
+                    <th>Arrival Time</th>
+                    <th>Burst Time</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <button id="calculate" style="display:none;">Calculate</button>
+        <div id="results" style="display:none;">
+            <h2>Results</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Process</th>
+                        <th>TE (Tiempo de Espera)</th>
+                        <th>TR (Tiempo de Respuesta)</th>
+                        <th>Rondas</th>
+                    </tr>
+                </thead>
+                <tbody id="results-body"></tbody>
+            </table>
+            <p id="averages"></p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
