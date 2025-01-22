@@ -34,25 +34,23 @@ document.getElementById('calculate').addEventListener('click', async () => {
     const response = await fetch('http://localhost:3000/calculate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ processes, quantum })
+        body: JSON.stringify({ processes, quantum }),
     });
 
     if (!response.ok) {
-        alert("Error fetching data from the backend.");
+        alert('Error fetching data from the backend.');
         return;
     }
 
-    let { results, averageTE, averageTR } = await response.json();
+    const { results, averageDetails } = await response.json();
 
-    // Ordenar resultados por ID
-    results = results.sort((a, b) => a.id.localeCompare(b.id));
-
+    // Mostrar resultados detallados
     const resultsBody = document.getElementById('results-body');
     resultsBody.innerHTML = '';
 
     results.forEach(({ id, detailedTE, TR, rounds }) => {
         const row = document.createElement('tr');
-        const roundsText = rounds.map(r => `[${r.start}-${r.end}]`).join(', ');
+        const roundsText = rounds.map((r) => `[${r.start}-${r.end}]`).join(', ');
         row.innerHTML = `
             <td>${id}</td>
             <td>${detailedTE}</td>
@@ -61,10 +59,14 @@ document.getElementById('calculate').addEventListener('click', async () => {
         `;
         resultsBody.appendChild(row);
     });
-    
-    
 
-    document.getElementById('averages').textContent = `TEProm: ${averageTE.toFixed(2)}, TRProm: ${averageTR.toFixed(2)}`;
+    // Mostrar los promedios con operaciones
+    const averages = document.getElementById('averages');
+    averages.innerHTML = `
+        <strong>${averageDetails.TEProm}</strong><br>
+        <strong>${averageDetails.TRProm}</strong>
+    `;
+
     document.getElementById('results').style.display = 'block';
 });
 

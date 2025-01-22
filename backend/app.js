@@ -72,10 +72,17 @@ const calculateTEandTR = (processes, quantum) => {
         }
     }
 
-    const averageTE = results.reduce((sum, p) => sum + p.TE, 0) / results.length;
-    const averageTR = results.reduce((sum, p) => sum + p.TR, 0) / results.length;
+    const totalTE = results.reduce((sum, p) => sum + p.TE, 0);
+    const totalTR = results.reduce((sum, p) => sum + p.TR, 0);
+    const averageTE = totalTE / results.length;
+    const averageTR = totalTR / results.length;
 
-    return { results, averageTE, averageTR };
+    const averageDetails = {
+        TEProm: `TEProm = (${results.map(p => p.TE).join(' + ')}) / ${results.length} = ${averageTE.toFixed(2)}`,
+        TRProm: `TRProm = (${results.map(p => p.TR).join(' + ')}) / ${results.length} = ${averageTR.toFixed(2)}`
+    };
+
+    return { results, averageTE, averageTR, averageDetails };
 };
 
 // Endpoint to calculate TE and TR
