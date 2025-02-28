@@ -5,10 +5,10 @@ FROM node:16
 WORKDIR /app
 
 # Copia los archivos necesarios para instalar dependencias
-COPY package.json package-lock.json ./
+COPY package.json ./
 
 # Instala las dependencias en modo producción
-RUN npm ci --only=production
+RUN npm install --only=production
 
 # Copia el resto de los archivos de la aplicación
 COPY . .
